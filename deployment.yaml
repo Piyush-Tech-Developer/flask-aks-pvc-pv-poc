@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: flask
-        image: <ACR_NAME>.azurecr.io/flaskapp:latest
+        image: acrdockerupload.azurecr.io/flaskapp:latest
         ports:
         - containerPort: 8000
         volumeMounts:
