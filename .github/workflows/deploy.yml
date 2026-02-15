@@ -44,10 +44,6 @@ jobs:
           --name my-aks-cluster \
           --overwrite-existing
 
-    - name: Deploy to AKS
-      run: |
-        kubectl apply -f k8s/
-
 
     - name: Deploy to AKS
       run: |
