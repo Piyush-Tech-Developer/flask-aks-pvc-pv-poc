@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask
+  template:
+    metadata:
+      labels:
+        app: flask
+    spec:
+      containers:
+      - name: flask
+        image: <ACR_NAME>.azurecr.io/flaskapp:latest
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - name: file-volume
+          mountPath: /data
+      volumes:
+      - name: file-volume
+        persistentVolumeClaim:
+          claimName: azurefile-pvc
