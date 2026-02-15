@@ -1,24 +1,20 @@
-from flask import Flask, jsonify
-import os, random, string
+from flask import Flask
+import os
+import uuid
 
 app = Flask(__name__)
-DATA_PATH = "/data"
+
+DATA_DIR = "/data"
 
 @app.route("/")
 def home():
-    return "AKS PV/PVC App Running"
-
-@app.route("/generate")
-def generate():
-    os.makedirs(DATA_PATH, exist_ok=True)
-
-    filename = "file_" + ''.join(random.choices(string.ascii_letters, k=6)) + ".txt"
-    filepath = os.path.join(DATA_PATH, filename)
+    filename = f"file_{uuid.uuid4().hex}.txt"
+    filepath = os.path.join(DATA_DIR, filename)
 
     with open(filepath, "w") as f:
-        f.write("Random dummy file stored using AKS PV/PVC")
+        f.write("This is a dummy generated file.\n")
 
-    return jsonify({"file": filename, "path": filepath})
+    return f"File created: {filename}"
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=8000)
